@@ -6,6 +6,12 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
+export const metadata = {
+  title: 'Legal Stay Georgia – Your Trusted Legal Partner',
+  description:
+    'Legal Stay Georgia provides comprehensive legal services: residence permits, company formation, banking support, tax residency, IT Virtual Zone, and more.',
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
