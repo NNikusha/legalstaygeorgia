@@ -10,7 +10,7 @@ function StoryButton({ width }: HomePageButtonProps) {
       style={{ width: width }}
       className="font-bold text-xs tracking-[2px] flex items-center  text-white cursor-pointer justify-between"
     >
-      READ STORY
+      LEARN MORE
       <img src="/images/story_arrow.svg" alt="arrow" />
     </button>
   );

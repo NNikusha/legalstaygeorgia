@@ -1,396 +1,308 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import StoryButton from '@/components/atoms/StoryButton/StoryButton'
+import { useState, useEffect, useRef } from "react";
 
-export default function Stories() {
-  const defaultStories = [
-    {
-      date: "April 16th 2020",
-      title: "The Mountains",
-      author: "by John Appleseed",
-      image: "/images/mountain_story.webp",
-    },
-    {
-      date: "April 14th 2020",
-      title: "Sunset Cityscapes",
-      author: "by Benjamin Cruz",
-      image: "/images/city_story.webp",
-    },
-    {
-      date: "April 11th 2020",
-      title: "18 Days Voyage",
-      author: "by Alexei Borodin",
-      image: "/images/man_walking_story.webp",
-    },
-    {
-      date: "April 9th 2020",
-      title: "Architecturals",
-      author: "by Samantha Brooke",
-      image: "/images/round_building_story.webp",
-    },
-    {
-      date: "April 7th 2020",
-      title: "World Tour 2019",
-      author: "by Timothy Wagner",
-      image: "/images/story_1.webp",
-    },
-    {
-      date: "April 3rd 2020",
-      title: "Unforeseen Corners",
-      author: "by William Malcolm",
-      image: "/images/story_2.webp",
-    },
-    {
-      date: "March 29th 2020",
-      title: "King on Africa: Part II",
-      author: "by Tim Hillenburg",
-      image: "/images/story_3.webp",
-    },
-    {
-      date: "March 21th 2020",
-      title: "The Trip to Nowhere",
-      author: "by Felicia Rourke",
-      image: "/images/story_4.webp",
-    },
-    {
-      date: "March 19th 2020",
-      title: "Rage of The Sea",
-      author: "by Mohammed Abdul",
-      image: "/images/story_5.webp",
-    },
-    {
-      date: "March 16th 2020",
-      title: "Running Free",
-      author: "by Michelle",
-      image: "/images/story_6.webp",
-    },
-    {
-      date: "March 11th 2020",
-      title: "Behind the Waves",
-      author: "by Lamarr Wilson",
-      image: "/images/story_7.webp",
-    },
-    {
-      date: "March 9th 2020",
-      title: "Calm Waters",
-      author: "by Samantha Brooke",
-      image: "/images/story_8.webp",
-    },
-    {
-      date: "March 5th 2020",
-      title: "The Milky Way",
-      author: "by Benjamin Cruz",
-      image: "/images/story_9.webp",
-    },
-    {
-      date: "March 4th 2020",
-      title: "Night at The Dark Forest",
-      author: "by Mohammed Abdul",
-      image: "/images/story_10.webp",
-    },
-    {
-      date: "March 1st 2020",
-      title: "Somwarpet's Beauty",
-      author: "by Michelle",
-      image: "/images/story_11.webp",
-    },
-    {
-      date: "February 25th 2020",
-      title: "Land of Dreams",
-      author: "by William Malcolm",
-      image: "/images/story_12.webp",
-    },
-  ]
+const allServices = [
+  {
+    number: "01",
+    tag: "Immigration",
+    title: "Residence Permit",
+    description:
+      "Comprehensive support for obtaining a Georgian residence permit — work permit, investment-based, temporary or permanent residency. We handle documents, translations, notarizations, submission and follow-up.",
+    icon: "/images/Shape1.svg",
+  },
+  {
+    number: "02",
+    tag: "Business Formation",
+    title: "Open a Company",
+    description:
+      "Start your business in Georgia with one of the world's lowest tax burdens. We assist with LLC, JSC and individual entrepreneur registration, legal compliance and ongoing bookkeeping.",
+    icon: "/images/Shape2.svg",
+  },
+  {
+    number: "03",
+    tag: "Tax Benefits",
+    title: "IT Virtual Zone",
+    description:
+      "Register as an IT Virtual Zone company and enjoy zero VAT and corporate income tax on international services. We handle full registration, tax advisory and ongoing legal compliance.",
+    icon: "/images/Shape3.svg",
+  },
+  {
+    number: "04",
+    tag: "Banking",
+    title: "Bank Account Support",
+    description:
+      "We assist with corporate and personal bank account setups, multicurrency options (EUR, USD, GBP, GEL), and have special expertise in AML/KYC procedures to ensure smooth account approvals.",
+    icon: "/images/Shape4.svg",
+  },
+  {
+    number: "05",
+    tag: "IT Business",
+    title: "IT Company in Georgia",
+    description:
+      "Georgia is a growing hub for tech companies. We assist with company formation, IT Virtual Zone registration, tax and legal advisory, and ongoing employment law support.",
+    icon: "/images/Shape5.svg",
+  },
+  {
+    number: "06",
+    tag: "Self-Employment",
+    title: "Individual Entrepreneur",
+    description:
+      "Register as an Individual Entrepreneur and qualify for Small Business Status with a 1% tax rate on revenue. Ideal for freelancers and small business owners seeking minimal bureaucracy.",
+    icon: "/images/Shape6.svg",
+  },
+  {
+    number: "07",
+    tag: "Education",
+    title: "Study in Georgia",
+    description:
+      "Georgia offers high-quality, affordable education with English-taught programs. We help with university selection, applications, visa and residency, legal address and accommodation support.",
+    icon: "/images/Shape1.svg",
+  },
+  {
+    number: "08",
+    tag: "Privacy",
+    title: "Nominee Services",
+    description:
+      "Maintain full confidentiality with our nominee director and shareholder services. You retain 100% control of your business while your identity stays out of all public records.",
+    icon: "/images/Shape2.svg",
+  },
+  {
+    number: "09",
+    tag: "Virtual Office",
+    title: "Virtual Office Tbilisi",
+    description:
+      "Prestigious Tbilisi business address, mail handling, phone services and meeting rooms — without the overhead of a physical office. Ideal for startups, remote workers and international businesses.",
+    icon: "/images/Shape3.svg",
+  },
+  {
+    number: "10",
+    tag: "Compliance",
+    title: "KYC Assistance",
+    description:
+      "Expert guidance through bank KYC and AML procedures. We prepare documents, handle bank queries and provide proactive compliance advice to ensure swift, hassle-free account approvals.",
+    icon: "/images/Shape4.svg",
+  },
+  {
+    number: "11",
+    tag: "Finance",
+    title: "Accounting Services",
+    description:
+      "Full-range accounting: monthly and annual reporting, payroll management, profit distribution, corporate tax returns, IT Virtual Zone statements and annual audit preparation — all tailored to your needs.",
+    icon: "/images/Shape5.svg",
+  },
+  {
+    number: "12",
+    tag: "Employment",
+    title: "Labour Law",
+    description:
+      "Drafting employment contracts, foreign worker registration, workplace policies, dispute resolution, HR compliance audits and termination advice — full labour law support for your business.",
+    icon: "/images/Shape6.svg",
+  },
+  {
+    number: "13",
+    tag: "Property",
+    title: "Rent Property",
+    description:
+      "Extensive leaser assistance: property search and screening, legal due diligence, lease agreement review and negotiation, documentation compliance and post-lease support.",
+    icon: "/images/Shape1.svg",
+  },
+  {
+    number: "14",
+    tag: "Property",
+    title: "Buy Real Estate",
+    description:
+      "Comprehensive buyer assistance: property search, due diligence, viewings, legal review of purchase contracts, negotiation support, full documentation and post-purchase assistance.",
+    icon: "/images/Shape2.svg",
+  },
+  {
+    number: "15",
+    tag: "Tax Planning",
+    title: "Tax Residency",
+    description:
+      "Become a Georgian tax resident and benefit from no taxes on foreign-sourced income. We handle the application, tax optimization strategies and ensure ongoing compliance with Georgian tax laws.",
+    icon: "/images/Shape3.svg",
+  },
+  {
+    number: "16",
+    tag: "Life Events",
+    title: "Weddings in Georgia",
+    description:
+      "Georgia is a popular destination for international weddings with a simple, accessible legal process. We guide foreign couples through all documentation and legal requirements for a seamless ceremony.",
+    icon: "/images/Shape4.svg",
+  },
+];
 
-  const [stories, setStories] = useState<any[]>([])
-  const [showForm, setShowForm] = useState(false)
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newDate, setNewDate] = useState('')
-  const [newImageUrl, setNewImageUrl] = useState('')
-  const [isOnFooter, setIsOnFooter] = useState(false)
+function ArrowRight() {
+  return (
+    <svg
+      width="42"
+      height="13"
+      viewBox="0 0 42 13"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M0 6.35355H41.864" stroke="currentColor" />
+      <path d="M35.4282 0.353546L41.4282 6.35355L35.4282 12.3535" stroke="currentColor" />
+    </svg>
+  );
+}
 
-  // Date formatter function
-  function formatDate(dateString: string) {
-    if (!dateString) return 'Date'
+export default function ServicesSection() {
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    if (dateString.includes('th') || dateString.includes('st') || dateString.includes('nd') || dateString.includes('rd')) {
-      return dateString
-    }
-
-    const date = new Date(dateString)
-    const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }
-
-    return date.toLocaleDateString('en-US', options)
-  }
-
-  // local storage
   useEffect(() => {
-    const saved = localStorage.getItem('stories')
-    if (saved) {
-      setStories(JSON.parse(saved))
-    }
-    else {
-      setStories(defaultStories)
-      localStorage.setItem('stories', JSON.stringify(defaultStories))
-    }
-  }, [])
-
-
-  //footer detection
-  useEffect(() => {
-    const handleScroll = () => {
-      const footer = document.querySelector('#main-footer')
-
-      if (!footer) return
-
-      const footerPlace = footer.getBoundingClientRect()
-      const buttonBottom = window.innerHeight - 80
-
-      if (footerPlace.top < buttonBottom) {
-        setIsOnFooter(true)
-      } else {
-        setIsOnFooter(false)
-      }
-    }
-
-
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
-  // form handler
-  function openForm() {
-    setShowForm(true)
-  }
-
-  function closeForm() {
-    setShowForm(false)
-    setNewTitle('')
-    setNewAuthor('')
-    setNewDate('')
-    setNewImageUrl('')
-  }
-
-  // file reader
-  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-    if (!file) {
-      setNewImageUrl('');
-      return;
-    }
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const base64String = reader.result as string;
-      setNewImageUrl(base64String);
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  // submit handler
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    const newStory = {
-      title: newTitle,
-      author: newAuthor,
-      date: newDate,
-      image: newImageUrl,
-    }
-
-    const updatedStories = [newStory, ...stories]
-    setStories(updatedStories)
-    localStorage.setItem('stories', JSON.stringify(updatedStories))
-
-    setNewTitle('')
-    setNewAuthor('')
-    setNewDate('')
-    setNewImageUrl('')
-    setShowForm(false)
-  }
+    const observers: IntersectionObserver[] = [];
+    cardRefs.current.forEach((ref, index) => {
+      if (!ref) return;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleCards((prev) => new Set(prev).add(index));
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -20px 0px" }
+      );
+      observer.observe(ref);
+      observers.push(observer);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   return (
     <>
-      <button
-        onClick={openForm}
-        className={`
-          fixed bottom-8 right-8 z-20 cursor-pointer
-          w-16 h-16
-          font-bold text-[36px]
-          flex items-center justify-center
-          shadow-2xl
-          transition-all duration-300 hover:scale-110   
-          ${
-            isOnFooter
-              ? "bg-white text-black rounded-xl "
-              : "bg-black text-white rounded-xl "
-          }
-          `}
+      {/* Section intro */}
+      <div className="w-full py-16 px-8 flex flex-col items-center text-center bg-white">
+        <p className="font-bold text-xs tracking-[2px] text-black opacity-40 mb-4 uppercase">
+          Everything you need
+        </p>
+        <h2 className="text-[28px] md:text-[36px] font-bold tracking-[4px] leading-tight text-black max-w-2xl">
+          16 SERVICES. ONE TRUSTED PARTNER.
+        </h2>
+        <p className="mt-4 text-[15px] opacity-60 max-w-xl leading-6.25">
+          Legal Stay Georgia covers every aspect of life and business in Georgia.
+          Get in touch today for a free consultation.
+        </p>
+      </div>
 
-      >
-        +
-      </button>
-
-      {/* form */}
-      {showForm && (
-        <div
-          onClick={closeForm}
-          className="
-            fixed inset-0 z-50
-            flex items-center justify-center
-            bg-black/70 backdrop-blur-sm p-4
-          "
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="
-              w-full max-w-7xl bg-white rounded-2xl shadow-2xl
-              overflow-hidden flex 
-            "
-          >
-            <div className="flex-1 p-8 overflow-y-auto bg-gray-50">
-              <h2 className="text-[30px] font-bold mb-5">Create New Story</h2>
-
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                <div>
-                  <label className="block mb-2 font-medium">Title</label>
-                  <input
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                    placeholder="e.g. Northern Lights Adventure"
-                    className="w-full p-3 border rounded-lg text-[16px]"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 font-medium">Author</label>
-                  <input
-                    value={newAuthor}
-                    onChange={(e) => setNewAuthor(e.target.value)}
-                    placeholder="by Your Name"
-                    className="w-full p-3 border rounded-lg text-[16px]"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 font-medium">Date</label>
-                  <input
-                    type="date"
-                    value={newDate}
-                    onChange={(e) => setNewDate(e.target.value)}
-                    className="w-full p-3 border rounded-lg text-[16px]"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block mb-2 font-medium">Image</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="w-full p-3 rounded-md text-gray-500 border-black border-[1.5px] text-[16px]"
-                    required
-                  />
-                </div>
-
-                <div className="mt-4 flex gap-4  justify-end   ">
-                  <button
-                    type="submit"
-                    className="
-                      flex-1 py-3 px-6 rounded-xl font-bold text-white text-[16px]
-                      bg-black"
-                  >
-                    Create Story
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={closeForm}
-                    className="
-                      flex-1 py-3 px-6 rounded-xl border border-gray-300
-                      font-semibold text-[16px]"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-
-            <div className="flex-1 bg-gray-900 p-10 flex items-center justify-center">
-              <div className="w-full max-w-100 aspect-3/4 relative rounded-xl overflow-hidden shadow-2xl">
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.75)), url(${newImageUrl})`,
-                  }}
-                />
-
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <p className="text-md opacity-90 mb-1">{formatDate(newDate)}</p>
-                  <h3 className="text-2xl font-bold mb-1">{newTitle || 'Story Title'}</h3>
-                  <p className="text-[14px] opacity-90">{newAuthor || 'by Author Name'}</p>
-                  <div className="my-5 h-px bg-white/40" />
-
-                  <StoryButton width="100%" />
-                </div>
-              </div >
-            </div >
-          </div >
-        </div >
-      )
-      }
-
+      {/* 4-column grid — all 16 services */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 w-screen">
-        {stories.map((story) => (
-          <div
-            key={story.title}
-            className="group relative h-125  cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-linear-to-b from-black/5 to-black/70 transition-transform group-hover:-translate-y-6 duration-300" />
-
+        {allServices.map((service, index) => {
+          const isDark = index % 2 === 0;
+          return (
             <div
-              className="absolute inset-0 bg-cover bg-center transition-transform group-hover:-translate-y-6 duration-300"
-              style={{
-                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.7)), url('${story.image}')`,
+              key={service.title}
+              ref={(el) => {
+                if (el) cardRefs.current[index] = el;
               }}
+              className={`
+                group relative cursor-pointer flex flex-col min-h-80 p-8 overflow-hidden
+                transition-all duration-700 ease-out
+                ${isDark
+                  ? "bg-black text-white hover:bg-[#111]"
+                  : "bg-white text-black border border-gray-100 hover:bg-[#f5f5f5]"
+                }
+                ${
+                  visibleCards.has(index)
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
+                }
+              `}
+              style={{ transitionDelay: `${(index % 4) * 80}ms` }}
             >
-              <div className="absolute bottom-10 left-10 right-10 text-white">
-                <p className="text-[14px] mb-1">{formatDate(story.date)}</p>
-                <h3 className="text-[18px] font-bold mb-1">{story.title}</h3>
-                <p className="text-[14px]">{story.author}</p>
+              {/* Gradient top bar */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-[linear-gradient(to_right,#FFC593,#BC7198,#5A77FF)]" />
 
-                <div className="my-5 h-px bg-gray-400 w-full" />
+              {/* Background number watermark */}
+              <span
+                className={`absolute top-4 right-6 text-[72px] font-bold leading-none select-none pointer-events-none
+                  ${isDark ? "text-white opacity-[0.05]" : "text-black opacity-[0.04]"}`}
+              >
+                {service.number}
+              </span>
 
-                <StoryButton width="100%" />
+              {/* Icon */}
+              <div className={`w-10 h-10 mb-6 ${isDark ? "brightness-0 invert" : ""}`}>
+                <img src={service.icon} alt="" className="w-full h-full object-contain" />
               </div>
-            </div>
 
-            <div
-              className="
-                absolute bottom-0 left-0 right-0 h-1.5
-                bg-linear-to-r from-[#FFC593] via-[#BC7198] to-[#5A77FF]
-                scale-y-0 origin-bottom
-                transition-transform duration-300
-                group-hover:scale-y-100 group-hover:-translate-y-6
-              "
-            />
-          </div>
-        ))}
+              {/* Tag */}
+              <p className={`font-bold text-[11px] tracking-[2px] mb-3 uppercase ${isDark ? "opacity-50" : "opacity-40"}`}>
+                {service.tag}
+              </p>
+
+              {/* Title */}
+              <h3 className="text-[20px] font-bold mb-4 leading-tight tracking-[0.5px]">
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <p className={`text-[14px] leading-6.25 flex-grow ${isDark ? "opacity-60" : "opacity-60"}`}>
+                {service.description}
+              </p>
+
+              {/* Divider */}
+              <div className={`mt-6 h-px ${isDark ? "bg-white opacity-20" : "bg-black opacity-15"}`} />
+
+              {/* CTA */}
+              <a
+                href="https://calendly.com/contact-legalstaygeorgia/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="mt-5 flex items-center justify-between">
+                  <span className="font-bold text-xs tracking-[2px] uppercase">
+                    GET IN TOUCH
+                  </span>
+                  <ArrowRight />
+                </div>
+              </a>
+
+              {/* Bottom gradient bar on hover */}
+              <div
+                className="
+                  absolute bottom-0 left-0 right-0 h-1.5
+                  bg-[linear-gradient(to_right,#FFC593,#BC7198,#5A77FF)]
+                  scale-y-0 origin-bottom transition-transform duration-300 ease-out
+                  group-hover:scale-y-100
+                "
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bottom CTA banner */}
+      <div className="w-full bg-black py-20 px-8 flex flex-col items-center text-center">
+        <h3 className="text-[28px] md:text-[32px] font-bold tracking-[3px] text-white mb-4">
+          HAVE QUESTIONS?
+        </h3>
+        <p className="text-[15px] text-white opacity-60 max-w-lg leading-6.25 mb-10">
+          Our team is ready to help. Book a free 30-minute consultation and
+          let&apos;s discuss how Legal Stay Georgia can assist you.
+        </p>
+        <a
+          href="https://calendly.com/contact-legalstaygeorgia/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button className="font-bold text-xs tracking-[2px] px-10 py-4 bg-white text-black hover:bg-[#DFDFDF] cursor-pointer transition-colors duration-300">
+            BOOK FREE CONSULTATION
+          </button>
+        </a>
+        <div className="mt-10 flex flex-col md:flex-row gap-4 md:gap-14 text-white opacity-50 text-[13px]">
+          <span>Abashidze Street 34, Tbilisi, Georgia</span>
+          <a href="tel:+995551741616" className="hover:opacity-100 transition-opacity">
+            +995 551 741 616
+          </a>
+          <a href="mailto:contact@legalstaygeorgia.com" className="hover:opacity-100 transition-opacity">
+            contact@legalstaygeorgia.com
+          </a>
+        </div>
       </div>
     </>
-  )
+  );
 }
