@@ -45,24 +45,17 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Minimal dark panel */}
+        {/* Photo panel 1 */}
         <div
-          className="w-[58%] h-162.5 relative overflow-hidden flex items-end justify-start
-                          max-[1200px]:w-[36%]
-                          max-[700px]:hidden"
-          style={{
-            backgroundColor: "#0A0A0A",
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
+          className="w-[58%] h-162.5 relative overflow-hidden max-[1200px]:w-[36%] max-[700px]:hidden"
         >
+          <img
+            src="/images/hero-bg-1.png"
+            alt="Tbilisi cityscape"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
           {/* Gradient accent bar at bottom */}
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[linear-gradient(to_right,#FFC593,#BC7198,#5A77FF)]" />
-          {/* Watermark */}
-          <span className="absolute bottom-8 left-8 font-bold tracking-[8px] uppercase text-white select-none pointer-events-none text-[11px] opacity-15">
-            LEGAL STAY GEORGIA
-          </span>
         </div>
       </div>
 
@@ -71,21 +64,16 @@ function HeroSection() {
         className="h-150 w-screen flex
                         max-[700px]:h-auto max-[700px]:flex-col"
       >
-        {/* Minimal dark panel */}
+        {/* Photo panel 2 */}
         <div
-          className="w-[58%] h-150 relative overflow-hidden flex items-end justify-start max-[1200px]:w-[36%]
-                          max-[700px]:hidden"
-          style={{
-            backgroundColor: "#111111",
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
+          className="w-[58%] h-150 relative overflow-hidden max-[1200px]:w-[36%] max-[700px]:hidden"
         >
+          <img
+            src="/images/hero-bg-2.png"
+            alt="Georgia towers"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[linear-gradient(to_right,#FFC593,#BC7198,#5A77FF)]" />
-          <span className="absolute bottom-8 left-8 font-bold tracking-[8px] uppercase text-white select-none pointer-events-none text-[11px] opacity-15">
-            LEGAL STAY GEORGIA
-          </span>
         </div>
 
         <div
@@ -143,21 +131,16 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Minimal dark panel */}
+        {/* Photo panel 3 */}
         <div
-          className="w-[58%] h-150 relative overflow-hidden flex items-end justify-start max-[1200px]:w-[36%]
-                          max-[700px]:hidden"
-          style={{
-            backgroundColor: "#0A0A0A",
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
+          className="w-[58%] h-150 relative overflow-hidden max-[1200px]:w-[36%] max-[700px]:hidden"
         >
+          <img
+            src="/images/hero-bg-3.jpg"
+            alt="Tbilisi aerial view"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[linear-gradient(to_right,#FFC593,#BC7198,#5A77FF)]" />
-          <span className="absolute bottom-8 left-8 font-bold tracking-[8px] uppercase text-white select-none pointer-events-none text-[11px] opacity-15">
-            LEGAL STAY GEORGIA
-          </span>
         </div>
       </div>
     </div>
