@@ -88,7 +88,7 @@ function ArrowRight({ className = "" }: { className?: string }) {
 
 function Services() {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -129,8 +129,11 @@ function Services() {
         {services.map((service, index) => {
           const isDark = index % 2 === 0;
           return (
-            <div
+            <a
               key={service.title}
+              href="https://calendly.com/contact-legalstaygeorgia/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               ref={(el) => {
                 if (el) cardRefs.current[index] = el;
               }}
@@ -209,7 +212,7 @@ function Services() {
                   group-hover:scale-y-100
                 "
               />
-            </div>
+            </a>
           );
         })}
       </div>
