@@ -150,7 +150,7 @@ function ArrowRight() {
 
 export default function ServicesSection() {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -199,7 +199,7 @@ export default function ServicesSection() {
               target="_blank"
               rel="noopener noreferrer"
               ref={(el) => {
-                if (el) cardRefs.current[index] = el as HTMLDivElement;
+                if (el) cardRefs.current[index] = el;
               }}
               className={`
                 group relative cursor-pointer flex flex-col min-h-80 p-8 overflow-hidden
