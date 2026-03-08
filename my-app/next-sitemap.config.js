@@ -12,9 +12,6 @@ module.exports = {
         allow: '/',
       },
     ],
-    additionalSitemaps: [
-      'https://legalstaygeo.com/sitemap.xml',
-    ],
   },
   additionalPaths: async (config) => [
     await config.transform(config, '/'),
