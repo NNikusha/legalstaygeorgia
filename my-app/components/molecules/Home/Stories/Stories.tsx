@@ -129,10 +129,13 @@ function Services() {
         {services.map((service, index) => {
           const isDark = index % 2 === 0;
           return (
-            <div
+            <a
               key={service.title}
+              href="https://calendly.com/contact-legalstaygeorgia/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               ref={(el) => {
-                if (el) cardRefs.current[index] = el;
+                if (el) cardRefs.current[index] = el as HTMLDivElement;
               }}
               className={`
                 group relative cursor-pointer flex flex-col min-h-80 p-8 overflow-hidden
@@ -209,7 +212,7 @@ function Services() {
                   group-hover:scale-y-100
                 "
               />
-            </div>
+            </a>
           );
         })}
       </div>

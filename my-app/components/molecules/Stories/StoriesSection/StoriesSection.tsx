@@ -186,17 +186,20 @@ export default function ServicesSection() {
           Legal Stay Georgia covers every aspect of life and business in Georgia.
           Get in touch today for a free consultation.
         </p>
-      </div>
+                </div>
 
       {/* 4-column grid — all 16 services */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 w-screen">
         {allServices.map((service, index) => {
           const isDark = index % 2 === 0;
           return (
-            <div
+            <a
               key={service.title}
+              href="https://calendly.com/contact-legalstaygeorgia/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               ref={(el) => {
-                if (el) cardRefs.current[index] = el;
+                if (el) cardRefs.current[index] = el as HTMLDivElement;
               }}
               className={`
                 group relative cursor-pointer flex flex-col min-h-80 p-8 overflow-hidden
@@ -248,29 +251,23 @@ export default function ServicesSection() {
               <div className={`mt-6 h-px ${isDark ? "bg-white opacity-20" : "bg-black opacity-15"}`} />
 
               {/* CTA */}
-              <a
-                href="https://calendly.com/contact-legalstaygeorgia/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="font-bold text-xs tracking-[2px] uppercase">
-                    GET IN TOUCH
-                  </span>
-                  <ArrowRight />
-                </div>
-              </a>
+              <div className="mt-5 flex items-center justify-between">
+                <span className="font-bold text-xs tracking-[2px] uppercase">
+                  GET IN TOUCH
+                </span>
+                <ArrowRight />
+            </div>
 
               {/* Bottom gradient bar on hover */}
-              <div
-                className="
-                  absolute bottom-0 left-0 right-0 h-1.5
+            <div
+              className="
+                absolute bottom-0 left-0 right-0 h-1.5
                   bg-[linear-gradient(to_right,#FFC593,#BC7198,#5A77FF)]
                   scale-y-0 origin-bottom transition-transform duration-300 ease-out
                   group-hover:scale-y-100
                 "
               />
-            </div>
+            </a>
           );
         })}
       </div>
@@ -301,7 +298,7 @@ export default function ServicesSection() {
           <a href="mailto:contact@legalstaygeorgia.com" className="hover:opacity-100 transition-opacity">
             contact@legalstaygeorgia.com
           </a>
-        </div>
+          </div>
       </div>
     </>
   );
